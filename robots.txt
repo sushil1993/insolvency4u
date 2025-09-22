@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.insolvency4u.com/sitemap.xml

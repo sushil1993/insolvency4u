@@ -1,0 +1,200 @@
+@font-face { font-family:'Pegiblue'; src:url('../assets/fonts/Pegiblue.otf') format('opentype'); font-display:swap; }
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Manrope:wght@400;600;700&display=swap');
+
+:root{--brand:#2FA9B5;--brand-dark:#0E3040;--ink:#0E3040;--muted:#475569;--border:#e5e7eb;--shadow:0 12px 30px rgba(2,12,27,.10)}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Manrope,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:#0f172a;background:#fff;line-height:1.6}
+a{color:var(--brand);text-decoration:none}
+img{max-width:100%;height:auto;display:block}
+.container{width:min(1140px,94%);margin-inline:auto}
+
+/* ==== Header (perfect alignment, one row) ==== */
+
+header .container{ width:100%; padding-inline:6px }   /* more usable width */
+.nav{ gap:8px }    
+
+header{
+  position:sticky;
+  top:0;
+  z-index:60;
+  background:rgba(255,255,255,.80);
+  backdrop-filter:saturate(140%) blur(6px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+
+/* IMPORTANT: use the .nav class, not the <nav> element */
+.nav{
+  display: grid;
+  grid-template-columns: max-content 1fr max-content; /* logo | nav | actions */
+  align-items: center;
+  gap: 8px; /* space between logo and nav */
+}
+
+/* Logo */
+.brand{
+  display:flex;
+  height: 34px;
+  align-items:center;
+  margin-right: 10px; /* adds space between logo and first nav item */
+  flex-shrink:0;
+}
+.brand img{
+  height:38px; /* slightly smaller to buy room */
+  width:auto;
+  display:block;
+}
+
+/* Center nav (single line) */
+.main-nav{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:nowrap;   /* keep one row */
+  min-width:0;        /* allow the middle column to shrink */
+  overflow:visible;   /* never clip links */
+}
+.main-nav a{
+  position:relative;
+  padding:8px 2px;
+  letter-spacing:.2px;
+  font-family:"Plus Jakarta Sans",Manrope,sans-serif;
+  font-weight:800;
+  color:#0f172a;
+    font-size:.82rem;            /* modest shrink so all fit */
+  white-space:nowrap;
+  display:inline-block;
+}
+
+.main-nav a:after{
+  content:"";
+  position:absolute;
+  left:0; bottom:6px;
+  width:0; height:2px;
+  background:var(--brand);
+  transition:width .25s ease;
+}
+.main-nav a:hover:after{width:100%}
+
+/* Actions (right) */
+.actions{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  white-space:nowrap;
+  flex-shrink:0; /* reserve space */
+ margin-right: -6px; /* pull buttons closer to right edge */
+
+}
+.actions .btn {
+  padding-top: 6px;   /* was 8px → slightly less */
+  padding-bottom: 6px;
+}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:8px 12px; border-radius:999px;
+  font-family:"Plus Jakarta Sans", Manrope, sans-serif;
+  font-weight:800; border:1px solid transparent;
+  transition:.2s transform,.2s box-shadow;
+  font-size:.92rem;
+}
+.btn:hover{ transform:translateY(-1px); box-shadow:0 10px 28px rgba(2,12,27,.12) }
+.btn-primary{ background:var(--brand); color:#fff }
+.btn-outline{ background:#fff; color:#0f172a; border-color:#cbd5e1 }
+.btn-whatsapp{ background:#25D366; color:#fff; border-color:transparent; display:inline-flex; align-items:center; gap:8px }
+.btn-whatsapp img{ width:18px; height:18px; display:inline-block }
+
+/* Optional hamburger (unused for now) */
+.nav-toggle{ display:none; background:none; border:0; font-size:24px; line-height:1 }
+
+/* progressively tighten space when screen gets smaller */
+@media (max-width: 1300px) {
+  .main-nav { gap: 12px; }
+  .main-nav a { font-size: 0.88rem; }
+  .actions .btn { padding: 8px 10px; }
+}
+
+@media (max-width: 1200px) {
+  .main-nav { gap: 10px; }
+  .main-nav a { font-size: 0.84rem; }
+  .actions .btn-outline { display: none; } /* hides call outline first */
+}
+
+@media (max-width: 1100px) {
+  .main-nav a { font-size: 0.82rem; }
+  .actions .btn { padding: 6px 10px; font-size: 0.88rem; }
+}
+
+@media (max-width: 1024px) {
+  .main-nav { gap: 8px; }
+}
+
+/* Prevent horizontal scroll (helps sticky) */
+html, body { overflow-x: hidden; }
+
+/* ==== Hero ==== */
+.hero{position:relative;padding:72px 0 48px;background:#fff;overflow:hidden}
+.hero .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center}
+h1{font-family:"Plus Jakarta Sans",Manrope,sans-serif;font-weight:900;letter-spacing:-.02em;font-size:clamp(42px,6vw,70px);line-height:1.04;margin:6px 0 10px;color:var(--ink)}
+.sub{font-size:clamp(16px,2.4vw,20px);color:#334155;margin:8px 0 18px}
+.portrait{border-radius:22px;box-shadow:var(--shadow)}
+.portrait-wrap{position:relative;display:inline-block}
+.signature{position:absolute;right:10px;bottom:6px;z-index:3;pointer-events:none}
+.sig-name{font-family:'Pegiblue','Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-weight:400;font-size:clamp(28px,3.2vw,44px);color:#000;margin:0;transform: rotate(-12deg)}
+.sig-vertical{transform:rotate(-90deg)!important}
+
+/* ==== Sections ==== */
+section{padding:56px 0}
+h2{font-family:"Plus Jakarta Sans",Manrope,sans-serif;font-weight:900;letter-spacing:-.015em;font-size:clamp(26px,3.4vw,40px);margin:0 0 12px;color:var(--ink)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
+.card h3{font-family:"Plus Jakarta Sans",Manrope,sans-serif;font-weight:800;margin:0 0 6px}
+.bullets{list-style:none;padding:0;margin:10px 0 0;display:grid;grid-template-columns:repeat(2,minmax(240px,1fr));gap:10px 18px}
+.bullets li::before{content:"•";color:var(--brand);font-weight:900;margin-right:10px}
+
+/* ==== Floating CTA ==== */
+.floating-cta{
+  position:fixed; left:50%; transform:translateX(-50%);
+  bottom:14px; z-index:80; background:linear-gradient(90deg,var(--brand-dark),var(--brand));
+  color:#fff; border-radius:18px; padding:14px 18px; display:flex; gap:10px; align-items:center; box-shadow:var(--shadow)
+}
+.floating-cta a{color:#fff}
+@media (max-width:860px){
+  .floating-cta{width:calc(100% - 24px); bottom:10px; flex-wrap:wrap; justify-content:center}
+}
+
+/* Sticky reassurance line */
+.sticky-note{
+  position:sticky; top:60px;
+  font-family:'Pegiblue','Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  font-size:clamp(30px,5.2vw,58px); color:#000; line-height:1.1; margin:10px 0 0; transform:rotate(0deg)
+}
+
+/* Display lead */
+.display-lead{
+  font-family:"Plus Jakarta Sans", Manrope, sans-serif;
+  font-weight:900; font-size:clamp(28px,3.6vw,46px);
+  letter-spacing:-.01em; color:#0E3040; margin:12px 0 18px
+}
+
+.reveal{opacity:0; transform:translateY(22px); transition:opacity .55s ease, transform .55s ease}
+.reveal.in{opacity:1; transform:none}
+
+@media(max-width:860px){
+  .hero .grid{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .bullets{grid-template-columns:1fr}
+}
+
+/* ==== Footer ==== */
+footer{padding:40px 0 64px;color:#475569;border-top:1px solid var(--border)}
+.footgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:22px}
+@media(max-width:860px){.footgrid{grid-template-columns:1fr}}
+
+/* Ensure Call pill has dark text on white */
+.floating-cta .btn-outline{color:#0f172a!important;background:#fff!important;border-color:#fff!important}
+
+/* Hide any legacy floating WhatsApp widget if present */
+#whatsapp-float, .whatsapp-float, .wa-fab{display:none!important}
