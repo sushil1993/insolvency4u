@@ -198,3 +198,60 @@ footer{padding:40px 0 64px;color:#475569;border-top:1px solid var(--border)}
 
 /* Hide any legacy floating WhatsApp widget if present */
 #whatsapp-float, .whatsapp-float, .wa-fab{display:none!important}
+/* let nav wrap nicely on mobile */
+@media (max-width: 900px) {
+  .main-nav {
+    flex-wrap: wrap;        /* allow links to go to next line */
+    justify-content: flex-start; /* left-align when wrapped */
+    row-gap: 6px;           /* add space between lines */
+  }
+
+  .main-nav a {
+    font-size: 0.85rem;     /* slightly smaller text for mobile */
+  }
+
+  /* optional: shrink buttons so they fit too */
+  .actions .btn {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+}
+/* Base: three columns on desktop as you have now */
+.nav { display: grid; grid-template-columns: max-content 1fr max-content; align-items: center; gap: 16px; }
+.nav-toggle { display: none; background: none; border: 0; font-size: 28px; line-height: 1; padding: 6px 10px; cursor: pointer; }
+.nav-panel { display: contents; } /* desktop: inline with grid columns */
+
+/* --- Mobile: logo + hamburger only; menu slides down --- */
+@media (max-width: 900px){
+  /* grid becomes: logo | toggle */
+  .nav { grid-template-columns: max-content max-content; }
+  .nav-toggle { display: block; }
+  .actions, .main-nav { display: block; } /* stacked inside panel on mobile */
+
+  /* collapse container below the header row */
+  .nav-panel{
+    grid-column: 1 / -1;         /* full width under logo+toggle */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .28s ease;
+  }
+  .nav-panel.open { max-height: 80vh; }   /* enough for content to show */
+
+  /* mobile menu styling */
+  .main-nav a{
+    display: block;
+    padding: 12px 2px;
+    font-size: 1.05rem;
+  }
+  .actions{
+    display: grid;
+    grid-auto-flow: row;
+    gap: 10px;
+    padding: 8px 0 14px;
+  }
+}
+
+
